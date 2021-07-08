@@ -1,19 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
+import { useHistory } from "react-router-dom";
 import Actions from "./Actions";
-export default function ProprtiesList() {
-  // eslint-disable-next-line no-unused-vars
-  const [properties, setProperties] = useState([
-    { id: 1, name: "aaa", location: "giza", price: "999999$", status: "sold" , date: (new Date("2015-03-25")).toISOString().slice(0,10) },
-    { id: 2, name: "aba", location: "cairo", price: "99999$", status: "sold" ,  date: (new Date("2020-10-01")).toISOString().slice(0,10)},
-    { id: 3, name: "aac", location: "alex", price: "899999$", status: "sold" , date: (new Date("2017-05-05")).toISOString().slice(0,10)},
-  ]);
-  function handleDelete(id) {
-    console.log(id)
-    let ps = properties.filter(p=>p.id!==id);
-    setProperties(ps);
-  }
+export default function ProprtiesList({
+  properties,
+  handleDelete,
+  handleEdit,
+}) {
+  const history = useHistory();
   return (
     <div className="container">
+      <div>
+        <button
+          className="btn btn-primary m-3"
+          onClick={() => history.push("/add")}
+        >
+          Add a new property
+        </button>
+      </div>
       <table className="table  mx-auto">
         <thead>
           <tr>
@@ -38,7 +41,11 @@ export default function ProprtiesList() {
               <td>{property.status}</td>
               <td>{property.date}</td>
               <td>
-                <Actions id={property.id} handleDelete={handleDelete}/>
+                <Actions
+                  id={property.id}
+                  handleDelete={handleDelete}
+                  handleEdit={handleEdit}
+                />
               </td>
             </tr>
           ))}
