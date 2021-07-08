@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { useHistory } from "react-router-dom";
-import Actions from "./Actions";
+import Property from "./Property";
 export default function ProprtiesList({
   properties,
   handleDelete,
@@ -33,21 +33,12 @@ export default function ProprtiesList({
         </thead>
         <tbody>
           {properties.map((property) => (
-            <tr key={property.id}>
-              <th>{property.id}</th>
-              <th>{property.name}</th>
-              <td>{property.location}</td>
-              <td>{property.price}</td>
-              <td>{property.status}</td>
-              <td>{property.date}</td>
-              <td>
-                <Actions
-                  id={property.id}
-                  handleDelete={handleDelete}
-                  handleEdit={handleEdit}
-                />
-              </td>
-            </tr>
+            <Property
+              key={property.id}
+              p={property}
+              handleDelete={handleDelete}
+              handleEdit={handleEdit}
+            />
           ))}
         </tbody>
       </table>
