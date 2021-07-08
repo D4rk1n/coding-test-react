@@ -56,6 +56,23 @@ function App() {
     });
     setProperties(pn);
   };
+  const handleSort = (type) => {
+    let pn = properties;
+
+    console.log(type);
+    if (type === "date") {
+      pn = pn.sort((a, b) => {
+        return new Date(b.date) - new Date(a.date);
+      });
+    } else {
+      pn = pn.sort((a, b) =>
+        a[type] > b[type] ? 1 : b[type] > a[type] ? -1 : 0
+      );
+    }
+
+    console.log(pn);
+    setProperties((prev) => [...pn]);
+  };
   return (
     <div className="App">
       <Navbar />
@@ -63,6 +80,7 @@ function App() {
         <Route exact path="/">
           <PropertiesList
             handleDelete={handleDelete}
+            handleSort={handleSort}
             properties={properties}
             handleEdit={handleEdit}
           />
