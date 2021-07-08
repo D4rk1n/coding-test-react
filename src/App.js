@@ -9,24 +9,24 @@ function App() {
     {
       id: 1,
       name: "aaa",
-      location: "giza",
-      price: "999999$",
+      location: "London",
+      price: "999999£",
       status: "sold",
       date: new Date("2015-03-25").toISOString().slice(0, 10),
     },
     {
       id: 2,
       name: "aba",
-      location: "cairo",
-      price: "99999$",
+      location: "Everton",
+      price: "99999£",
       status: "sold",
       date: new Date("2020-10-01").toISOString().slice(0, 10),
     },
     {
       id: 3,
       name: "aac",
-      location: "alex",
-      price: "899999$",
+      location: "Liverpool",
+      price: "899999£",
       status: "sold",
       date: new Date("2017-05-05").toISOString().slice(0, 10),
     },
@@ -36,10 +36,14 @@ function App() {
     const pn = properties.filter((p) => p.id !== id);
     setProperties(pn);
   };
-  const handleEdit = (id) => {
+  const handleEdit = (id, p) => {
     let ind = properties.findIndex((p) => p.id === id);
     let ps = [...properties];
-    ps[ind].name = "edited";
+    console.log(id, p);
+    ps[ind].name = p.name;
+    ps[ind].price = p.price;
+    ps[ind].location = p.location;
+    ps[ind].status = p.status;
     setProperties(ps);
   };
   const handleAdd = (newProperty) => {
