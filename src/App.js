@@ -48,7 +48,7 @@ function App() {
     pn.push({
       ...newProperty,
       date: new Date().toISOString().slice(0, 10),
-      id: properties.length + 1,
+      id: Date.now() % 1000000,
     });
     setProperties(pn);
   };
