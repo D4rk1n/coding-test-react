@@ -5,7 +5,7 @@ import PropertiesList from "./components/ProprtiesList";
 import NewPropertyForm from "./components/NewPropertyForm";
 import Navbar from "./components/Navbar";
 function App() {
-  const [properties, setProperties] = useState([
+  const defaultProperties = [
     {
       id: 1,
       name: "aaa",
@@ -30,18 +30,28 @@ function App() {
       status: "sold",
       date: new Date("2017-05-05").toISOString().slice(0, 10),
     },
-  ]);
-  function handleDelete(id) {
-    let ps = properties.filter((p) => p.id !== id);
-    setProperties(ps);
-  }
-  function handleEdit(id) {
+  ];
+  const [properties, setProperties] = useState(defaultProperties);
+  const handleDelete = (id) => {
+    const pn = properties.filter((p) => p.id !== id);
+    setProperties(pn);
+  };
+  const handleEdit = (id) => {
     let ind = properties.findIndex((p) => p.id === id);
     let ps = [...properties];
     ps[ind].name = "edited";
-    console.log(id, ind, ps[ind]);
     setProperties(ps);
-  }
+  };
+  const handleAdd = (newProperty) => {
+    console.log("add");
+    let pn = properties;
+    pn.push({
+      ...newProperty,
+      date: new Date().toISOString().slice(0, 10),
+      id: properties.length + 1,
+    });
+    setProperties(pn);
+  };
   return (
     <div className="App">
       <Navbar />
@@ -53,7 +63,9 @@ function App() {
             handleEdit={handleEdit}
           />
         </Route>
-        <Route path="/add" component={NewPropertyForm} />
+        <Route path="/add">
+          <NewPropertyForm handleAdd={handleAdd} />
+        </Route>
       </Switch>
     </div>
   );
